@@ -105,118 +105,179 @@ int main(){
     char outputFileContent[L][C];
     int c0, c1, c2; //for choices
 
-
     clear();
-    printf("O que deseja fazer?\n1- Criptografar;\n2- Descriptografar;\n0- Sair.\n-Sua escolha: ");
-    scanf("%d", &c0);
 
-    switch (c0)
+    do
     {
-    case 1:
-        clear();
-        printf("A partir de que tipo de entrada deseja criptografar?\n1- Arquivo de texto;\n2- Entrada do teclado;\n0- Voltar.\n-Sua escolha: ");
-        scanf("%d", &c1);
-
-        switch (c1)
+        printf("O que deseja fazer?\n1- Criptografar;\n2- Descriptografar;\n0- Sair.\n-Sua escolha: ");
+        scanf("%d", &c0);
+        
+        switch (c0)
         {
         case 1:
             clear();
-            printf("Qual o nome do que arquivo deseja criptografar?\n");
-            gets(inputFileName);
+            do{
+                printf("A partir de que tipo de entrada deseja criptografar?\n1- Arquivo de texto;\n2- Entrada do teclado;\n0- Voltar.\n-Sua escolha: ");
+                scanf("%d", &c1);
 
-            inputFile = fopen(inputFileName, "r");
+                switch (c1)
+                {
+                case 1:
+                    clear();
+                    printf("Qual o nome do que arquivo deseja criptografar?\n");
+                    gets(inputFileName);
 
-            if(inputFile == NULL){
-                printf("Nao foi possivel abrir o arquivo.\n");
-                break;
-            }
+                    inputFile = fopen(inputFileName, "r");
 
-            readFromFile(inputFile, inputFileContent);
+                    if(inputFile == NULL){
+                        printf("Nao foi possivel abrir o arquivo.\n");
+                        break;
+                    }
 
-            printf("A partir de qual chave deseja criptografar? (1 - 26)\n");
-            scanf("%d", &key);
+                    readFromFile(inputFile, inputFileContent);
 
-            encryptText(inputFileContent, outputFileContent, key);
+                    printf("A partir de qual chave deseja criptografar? (1 - 26)\n");
+                    scanf("%d", &key);
 
-            printf("\nCriptografado com sucesso. O que deseja fazer com o novo texto?\n1- Mostrar;\n2- Escrever em arquivo;\n");
-            scanf("%d", &c2);
+                    encryptText(inputFileContent, outputFileContent, key);
 
-            switch (c2)
-            {
-            case 1:
-                shoWText(outputFileContent);
-                break;
+                    clear();
 
-            case 2:
-                clear();
-                printf("com qual nome deseja salvar o arquivo?\n");
+                    do{
+                        printf("\nCriptografado com sucesso. O que deseja fazer com o novo texto?\n1- Mostrar;\n2- Escrever em arquivo;\n0- Voltar.");
+                        scanf("%d", &c2);
+
+                        switch (c2)
+                        {
+                        case 1:
+                            shoWText(outputFileContent);
+                            break;
+
+                        case 2:
+                            clear();
+                            printf("com qual nome deseja salvar o arquivo?\n");
+                            
+                            char fileName[C];
+                            gets(fileName);
+
+                            writeOnFile(outputFileContent, fileName);
+                            
+                            clear();
+                            printf("Arquivo salvo com sucesso.\n");
+                            break;
+
+                        case 0:
+                            clear();
+                            break;
+                        
+                        default:
+                            clear();
+                            printf("Insira uma escolha valida.\n\n");
+                        }
+                    }while (c2 != 0);
+
+                    break;
                 
-                char fileName[C];
-                gets(fileName);
+                case 2:
+                    ///////ENTRADA DE TECLADO AQUI//////////////
+                    break;
 
-                writeOnFile(outputFileContent, fileName);
+                case 0:
+                    clear();
+                    break;
                 
-                printf("Arquivo salvo com sucesso.\n");
-                break;
-            
-            default:
-                break;
-            }
+                default:
+                    clear();
+                    printf("Insira uma escolha valida.\n\n");
+                    break;
+                }
+
+            }while(c1 != 0);
 
             break;
-        }
-
-        break;
-    
-    case 2:
-        clear();
-        printf("A partir de que tipo de entrada deseja descriptografar?\n1- Arquivo de texto;\n2- Entrada do teclado;\n0- Voltar.\n-Sua escolha: ");
-        scanf("%d", &c1);
-
-        switch (c1)
-        {
-        case 1:
+        case 2:
             clear();
-            printf("Qual o nome do que arquivo deseja descriptografar?\n");
-            gets(inputFileName);
 
-            inputFile = fopen(inputFileName, "r");
+            do{
+                printf("A partir de que tipo de entrada deseja descriptografar?\n1- Arquivo de texto;\n2- Entrada do teclado;\n0- Voltar.\n-Sua escolha: ");
+                scanf("%d", &c1);
 
-            if(inputFile == NULL){
-                printf("Nao foi possivel abrir o arquivo.");
-            }
+                switch (c1)
+                {
+                case 1:
+                    clear();
+                    printf("Qual o nome do que arquivo deseja descriptografar?\n");
+                    gets(inputFileName);
 
-            readFromFile(inputFile, inputFileContent);
+                    inputFile = fopen(inputFileName, "r");
 
-            printf("A partir de qual chave deseja descriptografar? (1 - 26)");
-            scanf("%d", &key);
+                    if(inputFile == NULL){
+                        printf("Nao foi possivel abrir o arquivo.");
+                    }
 
-            encryptText(inputFileContent, outputFileContent, -key);
+                    readFromFile(inputFile, inputFileContent);
 
-            printf("Descriptografado com sucesso. O que deseja fazer com o novo texto?\n1- Mostrar;\n2- Escrever em arquivo;\n");
-            scanf("%d", &c2);
+                    printf("A partir de qual chave deseja descriptografar? (1 - 26)");
+                    scanf("%d", &key);
 
-            switch (c2)
-            {
-            case 1:
-                shoWText(outputFileContent);
-                break;
+                    encryptText(inputFileContent, outputFileContent, -key);
+
+                    clear();
+                    do{
+                        printf("Descriptografado com sucesso. O que deseja fazer com o novo texto?\n1- Mostrar;\n2- Escrever em arquivo;\n0-Voltar.\n");
+                        scanf("%d", &c2);
+
+                        switch (c2)
+                        {
+                        case 1:
+                            shoWText(outputFileContent);
+                            break;
+
+                        case 2:
+                            clear();
+                            printf("com qual nome deseja salvar o arquivo?\n");
+                            
+                            char fileName[C];
+                            gets(fileName);
+
+                            writeOnFile(outputFileContent, fileName);
+                            
+                            clear();
+                            printf("Arquivo salvo com sucesso.\n");
+                            break;
+
+                        case 0:
+                            clear();
+                            break;
+                        
+                        default:
+                            clear();
+                            printf("Insira uma escolha valida.\n\n");
+                            break;
+                        }
+                    }while(c2 != 0);
+
+                    break;
+
+                case 2:
+                    /////////////entrada do teclado para descriptografar//////////////////
+                    break;
+                }
+            }while (c1 != 0);
             
-            default:
-                break;
-            }
+            break;
+        
+        case 0:
+            printf("Encerrando o programa...\n");
+            break;
 
+        default:
+            clear();
+            printf("Insira uma escolha valida.\n\n");
             break;
         }
 
-        break;
+    }while (c0 != 0);
     
-    case 0:
-        printf("Encerrando o programa...");
-        return 1;
-    }
-
-
-    system("pause");
     return 0;
 }
