@@ -1,5 +1,5 @@
 texto original
 linha 2
 TeSte De ReMOcAo de Letras MAIUSCULAS
-teste, de, preservacao. de? pontuacoes
+teste, de, preservacao. de ? pontuacoes
 acentuação gráfica teste
