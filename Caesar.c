@@ -39,6 +39,29 @@ void writeOnFile(char content[L][C], char fileName[C]){
     
 }
 
+void getTextFromKeyboard(char outputText[L][C]){
+
+    int i = 0;
+    char line[C];
+    printf("Digite o que deseja criptografar: ('--end' para terminar)\n" );
+
+
+    do{
+        
+        gets(line);
+
+        if(strcmp(line, "--end") == 0){
+            break;
+        }
+
+        strcat(line, "\n");
+        strcpy(outputText[i++], line);
+
+    }while(i < C);
+
+
+}
+
 //para descriptografar, basta passar a chave com um valor negativo
 void encryptText(char inputText[L][C], char outputText[L][C], int key){
 
@@ -104,7 +127,7 @@ void showKeyIntervalDecryption(char inputText[L][C], int caracterQuant, int firs
 
         char decrypted[L][C];
 
-        for(i = firstKey; i < lastKey; i++){
+        for(i = firstKey; i <= lastKey; i++){
         
             printf("chave %d: ", i);
             encryptText(cutText, decrypted, -i);
@@ -192,7 +215,9 @@ int main(){
                     break;
 
                 case 2:
-                    ///////////////ENTRADA DO TECLADO AQ//////////////
+                    clear();
+                    getTextFromKeyboard(inputFileContent);
+
                     proceed = 1;
                     break;
 
@@ -305,7 +330,9 @@ int main(){
                     break;
 
                 case 2:
-                    ///////////////ENTRADA DO TECLADO AQ//////////////
+                    clear();
+                    getTextFromKeyboard(inputFileContent);
+
                     proceed = 1;
                     break;
 
@@ -349,7 +376,7 @@ int main(){
                         printf("A partir de qual chave iniciar? (1 - 26)\n");
                         scanf("%d", &firstKey);
 
-                        printf("\nAté qual chave deseja executar? (%d - 26)\n", firstKey);
+                        printf("\nAtes qual chave deseja executar? (%d - 26)\n", firstKey);
                         scanf("%d", &lastKey);
 
                         printf("\nCom quantos caracteres deseja exibir as saidas?\n");
